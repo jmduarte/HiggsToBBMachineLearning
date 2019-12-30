@@ -9,7 +9,7 @@ HiggsToBBMachineLearning
 Author: `Javier Duarte <https://orcid.org/0000-0002-5076-7096>`_
 
 .. |open-binder| image:: https://mybinder.org/badge_logo.svg
- :target: https://mybinder.org/v2/gh/cernopendata-datascience/HiggsToBBMachineLearning/master?filepath=train.ipynb
+ :target: https://mybinder.org/v2/gh/jmduarte/HiggsToBBMachineLearning/randomforest?filepath=train.ipynb
 
 Analysis structure
 ==================
