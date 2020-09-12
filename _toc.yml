@@ -1,0 +1,4 @@
+- file: README.rst
+  sections:
+    - file: 02-dataset
+    - file: 03-train

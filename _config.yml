@@ -1,0 +1,8 @@
+# Book settings
+title: Particle Physics and Machine Learning
+author: Javier Duarte
+logo: HIG-19-003_v6.png
+
+latex:
+  latex_documents:
+    targetname: book.tex
