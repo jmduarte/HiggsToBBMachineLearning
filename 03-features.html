@@ -1,0 +1,738 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Week 3: Feature Engineering &#8212; Particle Physics and Machine Learning</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-dropdown.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Week 5: Building a Deep Learning Model" href="05-deep-learning.html" />
+    <link rel="prev" title="Week 2: Data Formats and Exploration" href="02-dataset.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  <img src="_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Particle Physics and Machine Learning</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="README.html">
+   Particle Physics and Machine Learning
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="02-dataset.html">
+   Week 2: Data Formats and Exploration
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Week 3: Feature Engineering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05-deep-learning.html">
+   Week 5: Building a Deep Learning Model
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/03-features.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/jmduarte/HiggsToBBMachineLearning/dsc?urlpath=tree/03-features.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        <a class="jupyterhub-button" href="https://datahub.ucsd.edu/hub/user-redirect/git-pull?repo=https://github.com/jmduarte/HiggsToBBMachineLearning&urlpath=tree/HiggsToBBMachineLearning/03-features.ipynb&branch=dsc"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch JupyterHub" data-toggle="tooltip"
+                data-placement="left"><img class="jupyterhub-button-logo"
+                    src="_static/images/logo_jupyterhub.svg"
+                    alt="Interact on JupyterHub">JupyterHub</button></a>
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/jmduarte/HiggsToBBMachineLearning/blob/dsc/03-features.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#b-hadrons">
+   b hadrons
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#single-b-tagging">
+   Single b-tagging
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#double-b-tagging">
+   Double b-tagging
+  </a>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="week-3-feature-engineering">
+<h1>Week 3: Feature Engineering<a class="headerlink" href="#week-3-feature-engineering" title="Permalink to this headline">¶</a></h1>
+<p>Many different kinds of features have been specially engineered to perform b-tagging. We will consider several of these today.</p>
+<div class="section" id="b-hadrons">
+<h2>b hadrons<a class="headerlink" href="#b-hadrons" title="Permalink to this headline">¶</a></h2>
+<p>B hadrons contain bottom quarks.
+These hadrons are unstable, meaning they naturally (and spontaneously) decay to hadrons containing lighter quarks, after a period of time (with a known median lifetime).</p>
+<p>Because of the large mass difference between bottom quarks and the lighter quarks, the lifetime of b hadrons tends to be relatively long: around <span class="math notranslate nohighlight">\(10^{-12}\)</span> s.
+Given the fact that they are traveling near the speed of light, this means they can travel <span class="math notranslate nohighlight">\(O\)</span>(mm) in the detector before dacaying.
+The particle sproduced from this decay also tend to be higher energy</p>
+<p>Therefore, we can consider the properties of <em>displaced tracks</em> and <em>secondary vertices</em> (points of origin of collections of displaced tracks).
+In particular we quantify how displaced a track is in terms of its <em>impact parameter</em>.</p>
+</div>
+<div class="section" id="single-b-tagging">
+<h2>Single b-tagging<a class="headerlink" href="#single-b-tagging" title="Permalink to this headline">¶</a></h2>
+<p>For single b-tagging, consider the following image:
+<img src="http://cms-results.web.cern.ch/cms-results/public-results/publications/BTV-16-002/CMS-BTV-16-002_Figure_001.png" alt="b-tagging" width="500"></p>
+<p>For more information, read…</p>
+</div>
+<div class="section" id="double-b-tagging">
+<h2>Double b-tagging<a class="headerlink" href="#double-b-tagging" title="Permalink to this headline">¶</a></h2>
+<p>For double b-tagging, consider the following image:
+<img src="Hbb.png" alt="b-tagging" width="500"></p>
+<p>For this, we can also take advantage of the so-called <em>jet substructure</em>. For more information, read…</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">uproot</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">uproot</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;root://eospublic.cern.ch//eos/opendata/cms/datascience/HiggsToBBNtupleProducerTool/HiggsToBBNTuple_HiggsToBB_QCD_RunII_13TeV_MC/train/ntuple_merged_10.root&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="nn">/opt/hostedtoolcache/Python/3.7.9/x64/lib/python3.7/site-packages/cachetools/cache.py</span> in <span class="ni">__getitem__</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">     </span><span class="mi">38</span>         <span class="k">try</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">39</span>             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+<span class="g g-Whitespace">     </span><span class="mi">40</span>         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+
+<span class="ne">KeyError</span>: 0
+
+<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
+
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="nn">/opt/hostedtoolcache/Python/3.7.9/x64/lib/python3.7/site-packages/uproot/source/chunked.py</span> in <span class="ni">data</span><span class="nt">(self, start, stop, dtype)</span>
+<span class="g g-Whitespace">    </span><span class="mi">116</span>                 <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">117</span>                     <span class="n">chunk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="p">[</span><span class="n">chunkindex</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">118</span>                 <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.7.9/x64/lib/python3.7/site-packages/uproot/cache.py</span> in <span class="ni">__getitem__</span><span class="nt">(self, where)</span>
+<span class="g g-Whitespace">     </span><span class="mi">62</span>         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">63</span>             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">where</span><span class="p">]</span>
+<span class="g g-Whitespace">     </span><span class="mi">64</span> 
+
+<span class="nn">/opt/hostedtoolcache/Python/3.7.9/x64/lib/python3.7/site-packages/cachetools/lru.py</span> in <span class="ni">__getitem__</span><span class="nt">(self, key, cache_getitem)</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span>     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">cache_getitem</span><span class="o">=</span><span class="n">Cache</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">14</span>         <span class="n">value</span> <span class="o">=</span> <span class="n">cache_getitem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span>         <span class="bp">self</span><span class="o">.</span><span class="n">__update</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.7.9/x64/lib/python3.7/site-packages/cachetools/cache.py</span> in <span class="ni">__getitem__</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">     </span><span class="mi">40</span>         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">41</span>             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__missing__</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">42</span> 
+
+<span class="nn">/opt/hostedtoolcache/Python/3.7.9/x64/lib/python3.7/site-packages/cachetools/cache.py</span> in <span class="ni">__missing__</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">     </span><span class="mi">67</span>     <span class="k">def</span> <span class="fm">__missing__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">68</span>         <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">69</span> 
+
+<span class="ne">KeyError</span>: 0
+
+<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
+
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="nn">/opt/hostedtoolcache/Python/3.7.9/x64/lib/python3.7/site-packages/uproot/source/xrootd.py</span> in <span class="ni">_open</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">     </span><span class="mi">27</span>             <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;XRD_RUNFORKHANDLER&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>   <span class="c1"># To make uproot + xrootd + multiprocessing work</span>
+<span class="ne">---&gt; </span><span class="mi">28</span>             <span class="kn">import</span> <span class="nn">pyxrootd.client</span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span>         <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;pyxrootd&#39;
+
+<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
+
+<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mi">6019412</span><span class="n">c3688</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">uproot</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">f</span> <span class="o">=</span> <span class="n">uproot</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;root://eospublic.cern.ch//eos/opendata/cms/datascience/HiggsToBBNtupleProducerTool/HiggsToBBNTuple_HiggsToBB_QCD_RunII_13TeV_MC/train/ntuple_merged_10.root&#39;</span><span class="p">)</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.7.9/x64/lib/python3.7/site-packages/uproot/rootio.py</span> in <span class="ni">open</span><span class="nt">(path, localsource, xrootdsource, httpsource, **options)</span>
+<span class="g g-Whitespace">     </span><span class="mi">55</span> 
+<span class="g g-Whitespace">     </span><span class="mi">56</span>     <span class="k">elif</span> <span class="n">_bytesid</span><span class="p">(</span><span class="n">parsed</span><span class="o">.</span><span class="n">scheme</span><span class="p">)</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">&quot;root&quot;</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">57</span>         <span class="k">return</span> <span class="n">xrootd</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">xrootdsource</span><span class="o">=</span><span class="n">xrootdsource</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">58</span> 
+<span class="g g-Whitespace">     </span><span class="mi">59</span>     <span class="k">elif</span> <span class="n">_bytesid</span><span class="p">(</span><span class="n">parsed</span><span class="o">.</span><span class="n">scheme</span><span class="p">)</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">&quot;http&quot;</span> <span class="ow">or</span> <span class="n">_bytesid</span><span class="p">(</span><span class="n">parsed</span><span class="o">.</span><span class="n">scheme</span><span class="p">)</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">&quot;https&quot;</span><span class="p">:</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.7.9/x64/lib/python3.7/site-packages/uproot/rootio.py</span> in <span class="ni">xrootd</span><span class="nt">(path, xrootdsource, **options)</span>
+<span class="g g-Whitespace">     </span><span class="mi">75</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">76</span>         <span class="n">openfcn</span> <span class="o">=</span> <span class="n">xrootdsource</span>
+<span class="ne">---&gt; </span><span class="mi">77</span>     <span class="k">return</span> <span class="n">ROOTDirectory</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">openfcn</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">78</span> 
+<span class="g g-Whitespace">     </span><span class="mi">79</span> <span class="k">def</span> <span class="nf">http</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">httpsource</span><span class="o">=</span><span class="n">HTTPSource</span><span class="o">.</span><span class="n">defaults</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.7.9/x64/lib/python3.7/site-packages/uproot/rootio.py</span> in <span class="ni">read</span><span class="nt">(source, *args, **options)</span>
+<span class="g g-Whitespace">    </span><span class="mi">120</span>                 <span class="c1"># See https://root.cern/doc/master/classTFile.html</span>
+<span class="g g-Whitespace">    </span><span class="mi">121</span>                 <span class="n">cursor</span> <span class="o">=</span> <span class="n">Cursor</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">122</span>                 <span class="n">magic</span><span class="p">,</span> <span class="n">fVersion</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fields</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">ROOTDirectory</span><span class="o">.</span><span class="n">_format1</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">123</span>                 <span class="k">if</span> <span class="n">magic</span> <span class="o">!=</span> <span class="sa">b</span><span class="s2">&quot;root&quot;</span><span class="p">:</span>
+<span class="nn">    124                     raise ValueError(&quot;not a ROOT file (starts with {0} instead of &#39;root&#39;)\n  </span> in <span class="ni">file: {1}&quot;.format(repr</span><span class="nt">(magic), source.path))</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.7.9/x64/lib/python3.7/site-packages/uproot/source/cursor.py</span> in <span class="ni">fields</span><span class="nt">(self, source, format)</span>
+<span class="g g-Whitespace">     </span><span class="mi">44</span>         <span class="n">start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span>
+<span class="g g-Whitespace">     </span><span class="mi">45</span>         <span class="n">stop</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="nb">format</span><span class="o">.</span><span class="n">size</span>
+<span class="ne">---&gt; </span><span class="mi">46</span>         <span class="k">return</span> <span class="nb">format</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">))</span>
+<span class="g g-Whitespace">     </span><span class="mi">47</span> 
+<span class="g g-Whitespace">     </span><span class="mi">48</span>     <span class="k">def</span> <span class="nf">field</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.7.9/x64/lib/python3.7/site-packages/uproot/source/chunked.py</span> in <span class="ni">data</span><span class="nt">(self, start, stop, dtype)</span>
+<span class="g g-Whitespace">    </span><span class="mi">117</span>                     <span class="n">chunk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="p">[</span><span class="n">chunkindex</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">118</span>                 <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">119</span>                     <span class="bp">self</span><span class="o">.</span><span class="n">_open</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">120</span>                     <span class="n">chunk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read</span><span class="p">(</span><span class="n">chunkindex</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">121</span> 
+
+<span class="nn">/opt/hostedtoolcache/Python/3.7.9/x64/lib/python3.7/site-packages/uproot/source/xrootd.py</span> in <span class="ni">_open</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">     </span><span class="mi">28</span>             <span class="kn">import</span> <span class="nn">pyxrootd.client</span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span>         <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">30</span>             <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;Install pyxrootd package with:</span><span class="se">\n</span><span class="s2">    conda install -c conda-forge xrootd</span><span class="se">\n</span><span class="s2">(or download from http://xrootd.org/dload.html and manually compile with cmake; setting PYTHONPATH and LD_LIBRARY_PATH appropriately).&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">31</span> 
+<span class="g g-Whitespace">     </span><span class="mi">32</span>         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">is_open</span><span class="p">():</span>
+
+<span class="ne">ImportError</span>: Install pyxrootd package with:
+    <span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">xrootd</span>
+<span class="p">(</span><span class="ow">or</span> <span class="n">download</span> <span class="kn">from</span> <span class="nn">http</span><span class="p">:</span><span class="o">//</span><span class="n">xrootd</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">dload</span><span class="o">.</span><span class="n">html</span> <span class="ow">and</span> <span class="n">manually</span> <span class="nb">compile</span> <span class="k">with</span> <span class="n">cmake</span><span class="p">;</span> <span class="n">setting</span> <span class="n">PYTHONPATH</span> <span class="ow">and</span> <span class="n">LD_LIBRARY_PATH</span> <span class="n">appropriately</span><span class="p">)</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;deepntuplizer/tree&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">labels</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">arrays</span><span class="p">(</span><span class="n">branches</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;label_QCD_b&#39;</span><span class="p">,</span> 
+                               <span class="s1">&#39;label_QCD_bb&#39;</span><span class="p">,</span> 
+                               <span class="s1">&#39;label_QCD_c&#39;</span><span class="p">,</span> 
+                               <span class="s1">&#39;label_QCD_cc&#39;</span><span class="p">,</span> 
+                               <span class="s1">&#39;label_QCD_others&#39;</span><span class="p">,</span> 
+                               <span class="s1">&#39;label_H_bb&#39;</span><span class="p">,</span> 
+                               <span class="s1">&#39;sample_isQCD&#39;</span><span class="p">],</span> 
+                     <span class="n">entrystop</span><span class="o">=</span><span class="mi">20000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># label QCD: require the sample to be QCD and any of the QCD flavors</span>
+<span class="n">label_QCD</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;sample_isQCD&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;label_QCD_b&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">labels</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;label_QCD_bb&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">labels</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;label_QCD_c&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">labels</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;label_QCD_cc&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">labels</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;label_QCD_others&#39;</span><span class="p">])</span>
+
+<span class="c1"># label Hbb</span>
+<span class="n">label_Hbb</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;label_H_bb&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#tree.show()</span>
+<span class="n">jet_features</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">arrays</span><span class="p">(</span><span class="n">branches</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;fj_pt&#39;</span><span class="p">,</span> 
+                                     <span class="s1">&#39;fj_sdmass&#39;</span><span class="p">,</span>
+                                     <span class="s1">&#39;fj_tau21&#39;</span><span class="p">,</span>
+                                     <span class="s1">&#39;fj_jetNTracks&#39;</span><span class="p">,</span>
+                                     <span class="s1">&#39;fj_trackSipdSig_0&#39;</span><span class="p">,</span>
+                                     <span class="s1">&#39;fj_trackSipdSig_1&#39;</span><span class="p">],</span>
+                          <span class="n">entrystop</span><span class="o">=</span><span class="mi">20000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">jet_features</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;fj_tau21&#39;</span><span class="p">],</span><span class="n">weights</span><span class="o">=</span><span class="n">label_QCD</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">101</span><span class="p">),</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;QCD&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">jet_features</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;fj_tau21&#39;</span><span class="p">],</span><span class="n">weights</span><span class="o">=</span><span class="n">label_Hbb</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">101</span><span class="p">),</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;H(bb)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">jet_features</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;fj_trackSipdSig_0&#39;</span><span class="p">],</span><span class="n">weights</span><span class="o">=</span><span class="n">label_QCD</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">101</span><span class="p">),</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;QCD&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">jet_features</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;fj_trackSipdSig_0&#39;</span><span class="p">],</span><span class="n">weights</span><span class="o">=</span><span class="n">label_Hbb</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">101</span><span class="p">),</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;H(bb)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">jet_features</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;fj_trackSipdSig_1&#39;</span><span class="p">],</span><span class="n">weights</span><span class="o">=</span><span class="n">label_QCD</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">101</span><span class="p">),</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;QCD&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">jet_features</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;fj_trackSipdSig_1&#39;</span><span class="p">],</span><span class="n">weights</span><span class="o">=</span><span class="n">label_Hbb</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">101</span><span class="p">),</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;H(bb)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/03-features_6_0.png" src="_images/03-features_6_0.png" />
+<img alt="_images/03-features_6_1.png" src="_images/03-features_6_1.png" />
+<img alt="_images/03-features_6_2.png" src="_images/03-features_6_2.png" />
+</div>
+</div>
+<p>To read more about the features read this: http://opendata.cern.ch/record/12102</p>
+<p>Here is a selection:</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Data variable</p></th>
+<th class="text-align:right head"><p>Type</p></th>
+<th class="text-align:left head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">sample_isQCD</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Boolean that is 1 if the simulated sample corresponds to QCD multijet production</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_jetNTracks</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Number of tracks associated with the AK8 jet</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_nSV</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Number of SVs associated with the AK8 jet (∆R &lt; 0.7)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_n_sdsubjets</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Number of soft drop subjets in the AK8 jet (up to 2)</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_mass</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Ungroomed mass of the AK8 jet</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_phi</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Azimuthal angle ϕ of the AK8 jet</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_pt</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Transverse momentum of the AK8 jet</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_tau1</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>N-subjettiness variable for a 1-prong jet hypothesis</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_tau2</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>N-subjettiness variable for a 2-prong jet hypothesis</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_tau3</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>N-subjettiness variable for a 3-prong jet hypothesis</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_tau21</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>N-subjettiness variable for 2-prong vs 1-prong jet discrimination (<code class="docutils literal notranslate"><span class="pre">fj_tau2/fj_tau1</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_tau32</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>N-subjettiness variable for 3-prong vs 2-prong jet discrimination (<code class="docutils literal notranslate"><span class="pre">fj_tau3/fj_tau2</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_sdmass</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Soft drop mass of the AK8 jet</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_ptDR</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Transverse momentum times the ΔR between the two soft drop subjets</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_relptdiff</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Absolute relative difference between the transverse momenta of the two softdrop subjets</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_sdn2</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Fraction of second subjet transverse momentum times ∆R squared</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_sdsj1_axis1</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>First axis of the first subjet</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_sdsj1_axis2</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Second axis of the first subjet</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_sdsj1_csv</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Combined secondary vertex (CSV) b-tagging discriminant for the first subjet</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_sdsj1_eta</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Pseudorapidity η of the first subjet</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_sdsj1_mass</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Mass of the first subjet</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_sdsj1_mult</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Particle multiplicity of the first subjet</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_sdsj1_phi</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Azimuthal angle ϕ of the first subjet</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_sdsj1_pt</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Transverse momentum of the first subjet</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_sdsj1_ptD</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>ptD variable, defined as the square root of the sum in quadrature of the transverse momentum of the subjet constituents divided by the scalar sum of the transverse momentum of the subjet constituents, for the first subjet (see <a class="reference external" href="https://cds.cern.ch/record/1599732">CMS-PAS-JME-13-002</a>)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_sdsj2_axis1</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>First axis of the first subjet</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_sdsj2_axis2</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Second axis of the first subjet</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_sdsj2_csv</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Combined secondary vertex (CSV) b-tagging discriminant for the first subject</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_sdsj2_eta</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Pseudorapidity η of the second subjet</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_sdsj2_mass</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Mass of the second subjet</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_sdsj2_mult</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Particle multiplicity of the second subjet</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_sdsj2_phi</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Azimuthal angle ϕ of the second subjet</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_sdsj2_pt</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Transverse momentum of the second subjet</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_sdsj2_ptD</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>ptD variable, defined as the square root of the sum in quadrature of the transverse momentum of the subjet constituents divided by the scalar sum of the transverse momentum of the subjet constituents, for the second subjet (see <a class="reference external" href="https://cds.cern.ch/record/1599732">CMS-PAS-JME-13-002</a>)</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_z_ratio</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>z ratio variable as defined in <a class="reference external" href="http://cms-results.web.cern.ch/cms-results/public-results/publications/BTV-16-002/">CMS-BTV-16-002</a></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_trackSipdSig_0</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>First largest track 3D signed impact parameter significance (see <a class="reference external" href="http://cms-results.web.cern.ch/cms-results/public-results/publications/BTV-16-002/">CMS-BTV-16-002</a> )</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_trackSipdSig_1</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Second largest track 3D signed impact parameter significance (see <a class="reference external" href="http://cms-results.web.cern.ch/cms-results/public-results/publications/BTV-16-002/">CMS-BTV-16-002</a> )</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_trackSipdSig_2</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Third largest track 3D signed impact parameter significance (see <a class="reference external" href="http://cms-results.web.cern.ch/cms-results/public-results/publications/BTV-16-002/">CMS-BTV-16-002</a> )</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_trackSipdSig_3</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Fourth largest track 3D signed impact parameter significance (see <a class="reference external" href="http://cms-results.web.cern.ch/cms-results/public-results/publications/BTV-16-002/">CMS-BTV-16-002</a> )</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_trackSipdSig_0_0</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>First largest track 3D signed impact parameter significance associated to the first N-subjettiness axis</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_trackSipdSig_0_1</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Second largest track 3D signed impact parameter significance associated to the first N-subjettiness axis</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_trackSipdSig_1_0</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>First largest track 3D signed impact parameter significance associated to the second N-subjettiness axis</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_trackSipdSig_1_1</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Second largest track 3D signed impact parameter significance associated to the second N-subjettiness axis</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_trackSip2dSigAboveCharm_0</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Track 2D signed impact parameter significance of the first track lifting the combined invariant mass of the tracks above the c hadron threshold mass (1.5 GeV)</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_trackSip2dSigAboveBottom_0</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Track 2D signed impact parameter significance of the first track lifting the combined invariant mass of the tracks above b hadron threshold mass (5.2 GeV)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_trackSip2dSigAboveBottom_1</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Track 2D signed impact parameter significance of the second track lifting the combined invariant mass of the tracks above b hadron threshold mass (5.2 GeV)</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_tau0_trackEtaRel_0</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Smallest track pseudorapidity ∆η, relative to the jet axis, associated to the first N-subjettiness axis</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_tau0_trackEtaRel_1</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Second smallest track pseudorapidity ∆η, relative to the jet axis, associated to the first N-subjettiness axis</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_tau0_trackEtaRel_2</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Third smallest track pseudorapidity ∆η, relative to the jet axis, associated to the first N-subjettiness axis</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_tau1_trackEtaRel_0</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Smallest track pseudorapidity ∆η, relative to the jet axis, associated to the second N-subjettiness axis</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_tau1_trackEtaRel_1</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Second smallest track pseudorapidity ∆η, relative to the jet axis, associated to the second N-subjettiness axis</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_tau1_trackEtaRel_2</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Third smallest track pseudorapidity ∆η, relative to the jet axis, associated to the second N-subjettiness axis</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_tau_vertexMass_0</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Total SV mass for the first N-subjettiness axis, defined as the invariant mass of all tracks from SVs associated with the first N-subjettiness axis</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_tau_vertexMass_1</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Total SV mass for the second N-subjettiness axis, defined as the invariant mass of all tracks from SVs associated with the second N-subjettiness axis</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_tau_vertexEnergyRatio_0</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>SV vertex energy ratio for the first N-subjettiness axis, defined as the total energy of all SVs associated with the first N-subjettiness axis divided by the total energy of all the tracks associated with the AK8 jet that are consistent with the PV</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_tau_vertexEnergyRatio_1</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>SV energy ratio for the second N-subjettiness axis, defined as the total energy of all SVs associated with the first N-subjettiness axis divided by the total energy of all the tracks associated with the AK8 jet that are consistent with the PV</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_tau_flightDistance2dSig_0</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Transverse (2D) flight distance significance between the PV and the SV with the smallest uncertainty on the 3D flight distance associated to the first N-subjettiness axis</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_tau_flightDistance2dSig_1</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Transverse (2D) flight distance significance between the PV and the SV with the smallest uncertainty on the 3D flight distance associated to the second N-subjettiness axis</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">fj_tau_vertexDeltaR_0</span></code></p></td>
+<td class="text-align:right"><p>Float_t</p></td>
+<td class="text-align:left"><p>Pseudoangular distance ∆R between the first N-subjettiness axis and SV direction</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="02-dataset.html" title="previous page">Week 2: Data Formats and Exploration</a>
+    <a class='right-next' id="next-link" href="05-deep-learning.html" title="next page">Week 5: Building a Deep Learning Model</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Javier Duarte<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="_static/js/index.js"></script>
+    
+  </body>
+</html>
