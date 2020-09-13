@@ -1,4 +1,5 @@
 - file: README.md
   sections:
     - file: 02-dataset.ipynb
+    - file: 03-features.ipynb
     - file: 05-deep-learning.ipynb
