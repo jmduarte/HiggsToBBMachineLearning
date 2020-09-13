@@ -16,7 +16,8 @@ on:
 jobs:
   deploy-book:
     runs-on: ubuntu-latest
-    steps:
+      container: gitlab-registry.nautilus.optiputer.net/jmduarte/weaver:latest
+      steps:
     - uses: actions/checkout@v2
 
     # Install dependencies
@@ -27,7 +28,6 @@ jobs:
 
     # Build the book
     - name: Build the book
-      container: gitlab-registry.nautilus.optiputer.net/jmduarte/weaver:latest
       run: |
         jupyter-book build .
 
