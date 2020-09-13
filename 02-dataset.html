@@ -191,7 +191,44 @@
             <i class="fas fa-list"></i> Contents
         </div>
         <nav id="bd-toc-nav">
-            
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#remote-files">
+   Remote files
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#xrootd-filenames">
+   XRootD filenames
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#trees">
+   Trees
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-note-on-jaggedness">
+   A note on “jaggedness”
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#jagged-arrys">
+   Jagged arrys
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#operations-with-jaggedness">
+   Operations with jaggedness
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conversion-to-regular-array">
+   Conversion to regular array
+  </a>
+ </li>
+</ul>
+
         </nav>
     </div>
 </div>
@@ -202,6 +239,16 @@
                 
   <div class="section" id="week-2-data-formats-and-exploration">
 <h1>Week 2: Data Formats and Exploration<a class="headerlink" href="#week-2-data-formats-and-exploration" title="Permalink to this headline">¶</a></h1>
+<p>Particle physics uses a data format (and analysis ecosystem) based on the <code class="docutils literal notranslate"><span class="pre">ROOT</span></code> library: https://root.cern.ch/.
+<code class="docutils literal notranslate"><span class="pre">ROOT</span></code> is a framework for data processing, born at CERN, at the heart of the research on high-energy physics.
+A <code class="docutils literal notranslate"><span class="pre">ROOT</span></code> file is a compressed binary file in which we can save objects of any type.
+There are python bindings built into <code class="docutils literal notranslate"><span class="pre">ROOT</span></code>, so called <code class="docutils literal notranslate"><span class="pre">PyROOT</span></code>, but for now we won’t discuss this.</p>
+<p>Recently, a different library called <code class="docutils literal notranslate"><span class="pre">uproot</span></code> has been developed allowing python users to do <code class="docutils literal notranslate"><span class="pre">ROOT</span></code> I/O directly: https://uproot.readthedocs.io/en/latest/.
+<code class="docutils literal notranslate"><span class="pre">uproot</span></code> is a reader and a writer of the <code class="docutils literal notranslate"><span class="pre">ROOT</span></code> file format using only <code class="docutils literal notranslate"><span class="pre">Python</span></code> and <code class="docutils literal notranslate"><span class="pre">Numpy</span></code>.
+Unlike the standard C++ <code class="docutils literal notranslate"><span class="pre">ROOT</span></code> implementation, uproot is only an I/O library, primarily intended to stream data into machine learning libraries in <code class="docutils literal notranslate"><span class="pre">Python</span></code>.
+Unlike <code class="docutils literal notranslate"><span class="pre">PyROOT</span></code> and <code class="docutils literal notranslate"><span class="pre">root_numpy</span></code>, uproot does not depend on C++ <code class="docutils literal notranslate"><span class="pre">ROOT</span></code>.
+Instead, it uses <code class="docutils literal notranslate"><span class="pre">Numpy</span></code> to cast blocks of data from the <code class="docutils literal notranslate"><span class="pre">ROOT</span></code> file as <code class="docutils literal notranslate"><span class="pre">Numpy</span></code> arrays.</p>
+<p>For a tutorial on <code class="docutils literal notranslate"><span class="pre">uproot</span></code>, see: https://hsf-training.github.io/hsf-training-uproot-webpage/ or here: https://github.com/jpivarski-talks/2020-07-13-pyhep2020-tutorial.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">uproot</span>
@@ -209,6 +256,17 @@
 </div>
 </div>
 </div>
+<div class="section" id="remote-files">
+<h2>Remote files<a class="headerlink" href="#remote-files" title="Permalink to this headline">¶</a></h2>
+<p>One nice feature of <code class="docutils literal notranslate"><span class="pre">ROOT</span></code> and <code class="docutils literal notranslate"><span class="pre">uproot</span></code> is the ability to read a file remotely.
+This is done using the <code class="docutils literal notranslate"><span class="pre">XRootD</span></code> library: https://xrootd.slac.stanford.edu/.
+<code class="docutils literal notranslate"><span class="pre">XRootD</span></code> is a generic suite for fast, low latency and scalable data access, which can serve natively any kind of data, organized as a hierarchical filesystem-like namespace, based on the concept of directory.</p>
+</div>
+<div class="section" id="xrootd-filenames">
+<h2>XRootD filenames<a class="headerlink" href="#xrootd-filenames" title="Permalink to this headline">¶</a></h2>
+<p>We specify that this is a remote file accessed via <code class="docutils literal notranslate"><span class="pre">XRootD</span></code> using the <code class="docutils literal notranslate"><span class="pre">root://</span></code> protocol in front of the filename.
+The redirector <code class="docutils literal notranslate"><span class="pre">eospublic.cern.ch</span></code> specifies that we’re accessing data from the CERN open data repository.
+And finally the rest of the file name <code class="docutils literal notranslate"><span class="pre">/eos/opendata/cms/datascience/HiggsToBBNtupleProducerTool/HiggsToBBNTuple_HiggsToBB_QCD_RunII_13TeV_MC/train/ntuple_merged_10.root</span></code> specifies the exact file.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">uproot</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;root://eospublic.cern.ch//eos/opendata/cms/datascience/HiggsToBBNtupleProducerTool/HiggsToBBNTuple_HiggsToBB_QCD_RunII_13TeV_MC/train/ntuple_merged_10.root&#39;</span><span class="p">)</span>
@@ -216,13 +274,30 @@
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="trees">
+<h2>Trees<a class="headerlink" href="#trees" title="Permalink to this headline">¶</a></h2>
+<p>One common object is a tree.
+Trees in <code class="docutils literal notranslate"><span class="pre">ROOT</span></code> are basically just tables of information.
+Trees are composed of branches, which are the columns of the table.
+The rows usually represent events (individual bunch crossings).
+However, in this case, each row represents a jet (a localized collection of particles within a single event).</p>
+<p>First we assign the tree to a variable (named <code class="docutils literal notranslate"><span class="pre">tree</span></code> here).
+We can see how many rows (jets) are contained in the tree, by checking its length.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;deepntuplizer/tree&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tree</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>200000
 </pre></div>
 </div>
 </div>
 </div>
+<p>Let’s list the contents (branches) of the tree.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -460,16 +535,37 @@ sv_ptrel                   TStreamerSTL               asjagged(asdtype(&#39;&gt;
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="a-note-on-jaggedness">
+<h2>A note on “jaggedness”<a class="headerlink" href="#a-note-on-jaggedness" title="Permalink to this headline">¶</a></h2>
+<p>Some branches are listed has having an interpretation of <code class="docutils literal notranslate"><span class="pre">asdtype('&gt;f4')</span></code> while some others are listed as <code class="docutils literal notranslate"><span class="pre">asjagged(asdtype('&gt;f4'),</span> <span class="pre">10)</span></code>.
+The former means there is only one number per jet.
+The latter means there may a variable number per jet.</p>
+<p>First, let’s get just look at non-jagged arrays, starting with the ground truth labels.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">labels</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">arrays</span><span class="p">(</span><span class="n">branches</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;label_QCD_b&#39;</span><span class="p">,</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Returns a dictionary</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">arrays</span><span class="p">(</span><span class="n">branches</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;label_QCD_b&#39;</span><span class="p">,</span> 
                                <span class="s1">&#39;label_QCD_bb&#39;</span><span class="p">,</span> 
                                <span class="s1">&#39;label_QCD_c&#39;</span><span class="p">,</span> 
                                <span class="s1">&#39;label_QCD_cc&#39;</span><span class="p">,</span> 
                                <span class="s1">&#39;label_QCD_others&#39;</span><span class="p">,</span> 
                                <span class="s1">&#39;label_H_bb&#39;</span><span class="p">,</span> 
                                <span class="s1">&#39;sample_isQCD&#39;</span><span class="p">],</span> 
-                     <span class="n">entrystop</span><span class="o">=</span><span class="mi">20000</span><span class="p">)</span>
+                     <span class="n">entrystop</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span>
+                     <span class="n">namedecode</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+<span class="n">labels</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;label_QCD_b&#39;: array([0, 0, 0, ..., 0, 0, 0], dtype=int32),
+ &#39;label_QCD_bb&#39;: array([0, 0, 0, ..., 0, 0, 0], dtype=int32),
+ &#39;label_QCD_c&#39;: array([0, 0, 0, ..., 0, 0, 0], dtype=int32),
+ &#39;label_QCD_cc&#39;: array([0, 0, 0, ..., 0, 1, 1], dtype=int32),
+ &#39;label_QCD_others&#39;: array([1, 1, 1, ..., 1, 0, 0], dtype=int32),
+ &#39;label_H_bb&#39;: array([0, 0, 0, ..., 0, 0, 0], dtype=int32),
+ &#39;sample_isQCD&#39;: array([1, 1, 1, ..., 1, 1, 1], dtype=int32)}
 </pre></div>
 </div>
 </div>
@@ -477,17 +573,21 @@ sv_ptrel                   TStreamerSTL               asjagged(asdtype(&#39;&gt;
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># label QCD: require the sample to be QCD and any of the QCD flavors</span>
-<span class="n">label_QCD</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;sample_isQCD&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;label_QCD_b&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">labels</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;label_QCD_bb&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">labels</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;label_QCD_c&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">labels</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;label_QCD_cc&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">labels</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;label_QCD_others&#39;</span><span class="p">])</span>
+<span class="n">label_QCD</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="s1">&#39;sample_isQCD&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="s1">&#39;label_QCD_b&#39;</span><span class="p">]</span> <span class="o">+</span> \
+                                      <span class="n">labels</span><span class="p">[</span><span class="s1">&#39;label_QCD_bb&#39;</span><span class="p">]</span> <span class="o">+</span> \
+                                      <span class="n">labels</span><span class="p">[</span><span class="s1">&#39;label_QCD_c&#39;</span><span class="p">]</span> <span class="o">+</span> \
+                                      <span class="n">labels</span><span class="p">[</span><span class="s1">&#39;label_QCD_cc&#39;</span><span class="p">]</span> <span class="o">+</span> \
+                                      <span class="n">labels</span><span class="p">[</span><span class="s1">&#39;label_QCD_others&#39;</span><span class="p">])</span>
 
 <span class="c1"># label Hbb</span>
-<span class="n">label_Hbb</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;label_H_bb&#39;</span><span class="p">]</span>
+<span class="n">label_Hbb</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="s1">&#39;label_H_bb&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># number of overlap events</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># number of overlap jets</span>
 <span class="nb">sum</span><span class="p">(</span><span class="n">label_QCD</span><span class="o">*</span><span class="n">label_Hbb</span><span class="p">)</span> 
 </pre></div>
 </div>
@@ -500,36 +600,24 @@ sv_ptrel                   TStreamerSTL               asjagged(asdtype(&#39;&gt;
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># number of events with some truth label defined </span>
-<span class="nb">sum</span><span class="p">(</span><span class="n">label_QCD</span><span class="o">+</span><span class="n">label_Hbb</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># fraction of jets with some truth label defined </span>
+<span class="nb">sum</span><span class="p">(</span><span class="n">label_QCD</span><span class="o">+</span><span class="n">label_Hbb</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">label_QCD</span><span class="o">+</span><span class="n">label_Hbb</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>18757
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.93785
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># total number of events </span>
-<span class="nb">len</span><span class="p">(</span><span class="n">label_QCD</span><span class="o">+</span><span class="n">label_Hbb</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>20000
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">jet_features</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">arrays</span><span class="p">(</span><span class="n">branches</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;fj_pt&#39;</span><span class="p">,</span> 
-                                     <span class="s1">&#39;fj_sdmass&#39;</span><span class="p">,</span>
-                                     <span class="s1">&#39;fj_tau21&#39;</span><span class="p">],</span>
-                          <span class="n">entrystop</span><span class="o">=</span><span class="mi">20000</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># jet features, namely transverse momemntum (pt) and soft-drop mass  (sdmass or msd)</span>
+<span class="n">jet_features</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">arrays</span><span class="p">(</span><span class="n">branches</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;fj_pt&#39;</span><span class="p">,</span> 
+                                     <span class="s1">&#39;fj_sdmass&#39;</span><span class="p">],</span>
+                          <span class="n">entrystop</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span>
+                          <span class="n">namedecode</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -541,14 +629,18 @@ sv_ptrel                   TStreamerSTL               asjagged(asdtype(&#39;&gt;
 
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">jet_features</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;fj_pt&#39;</span><span class="p">],</span><span class="n">weights</span><span class="o">=</span><span class="n">label_QCD</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4000</span><span class="p">,</span><span class="mi">101</span><span class="p">),</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;QCD&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">jet_features</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;fj_pt&#39;</span><span class="p">],</span><span class="n">weights</span><span class="o">=</span><span class="n">label_Hbb</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4000</span><span class="p">,</span><span class="mi">101</span><span class="p">),</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;H(bb)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">jet_features</span><span class="p">[</span><span class="s1">&#39;fj_pt&#39;</span><span class="p">],</span><span class="n">weights</span><span class="o">=</span><span class="n">label_QCD</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4000</span><span class="p">,</span><span class="mi">101</span><span class="p">),</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;QCD&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">jet_features</span><span class="p">[</span><span class="s1">&#39;fj_pt&#39;</span><span class="p">],</span><span class="n">weights</span><span class="o">=</span><span class="n">label_Hbb</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4000</span><span class="p">,</span><span class="mi">101</span><span class="p">),</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;H(bb)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Jet $p_</span><span class="si">{T}</span><span class="s1">$ [GeV]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Fraction of jets&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">jet_features</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;fj_sdmass&#39;</span><span class="p">],</span><span class="n">weights</span><span class="o">=</span><span class="n">label_QCD</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mi">101</span><span class="p">),</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;QCD&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">jet_features</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;fj_sdmass&#39;</span><span class="p">],</span><span class="n">weights</span><span class="o">=</span><span class="n">label_Hbb</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mi">101</span><span class="p">),</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;H(bb)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">jet_features</span><span class="p">[</span><span class="s1">&#39;fj_sdmass&#39;</span><span class="p">],</span><span class="n">weights</span><span class="o">=</span><span class="n">label_QCD</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mi">101</span><span class="p">),</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;QCD&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">jet_features</span><span class="p">[</span><span class="s1">&#39;fj_sdmass&#39;</span><span class="p">],</span><span class="n">weights</span><span class="o">=</span><span class="n">label_Hbb</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mi">101</span><span class="p">),</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;H(bb)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Jet $m_</span><span class="si">{SD}</span><span class="s1">$ [GeV]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Fraction of jets&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -556,24 +648,169 @@ sv_ptrel                   TStreamerSTL               asjagged(asdtype(&#39;&gt;
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/02-dataset_11_0.png" src="_images/02-dataset_11_0.png" />
-<img alt="_images/02-dataset_11_1.png" src="_images/02-dataset_11_1.png" />
+<img alt="_images/02-dataset_14_0.png" src="_images/02-dataset_14_0.png" />
+<img alt="_images/02-dataset_14_1.png" src="_images/02-dataset_14_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="jagged-arrys">
+<h2>Jagged arrys<a class="headerlink" href="#jagged-arrys" title="Permalink to this headline">¶</a></h2>
+<p>Now let’s look at a jagged array, like those related to track features, where there can be a variable number of tracks per jet.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">track_features</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">arrays</span><span class="p">(</span><span class="n">branches</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;track_pt&#39;</span><span class="p">,</span>
+                                       <span class="s1">&#39;label_H_bb&#39;</span><span class="p">],</span>
+                             <span class="n">entrystop</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span>
+                             <span class="n">namedecode</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+<span class="n">track_features</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;track_pt&#39;: &lt;JaggedArray [[1.0537109 0.95654297 1.4570312 ... 18.171875 1.6171875 1.234375] [2.7832031 3.5253906 49.09375 ... 3.8613281 1.4599609 1.4306641] [1.5302734 6.8164062 2.9257812 ... 25.6875 36.3125 1.1513672] ... [1.0810547 2.5234375 10.265625 ... 1.25 24.453125 8.4921875] [4.8125 2.6796875 3.9824219 ... 4.3359375 23.375 6.3242188] [2.4101562 1.4345703 2.4628906 ... 57.59375 1.0419922 2.9726562]] at 0x7f1e031074d0&gt;,
+ &#39;label_H_bb&#39;: array([0, 0, 0, ..., 0, 0, 0], dtype=int32)}
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note the difference between a “flat” array, where these a fixed number per jet (like 1 per jet in the case of jet properties) and a jagged array, where there are a variable number.</p>
+<p>We can demonstrate this by looking at the first jet in the dataset. As we’ll see there are 21 tracks, each with their own pt.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">jet_features</span><span class="p">[</span><span class="s1">&#39;fj_pt&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>251.27692
+</pre></div>
+</div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">track_features</span><span class="p">[</span><span class="s1">&#39;track_pt&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 1.0537109 ,  0.95654297,  1.4570312 ,  1.0917969 ,  3.1660156 ,
+        3.3886719 ,  6.8554688 ,  3.4257812 ,  1.8662109 ,  2.890625  ,
+        7.5898438 ,  1.4970703 ,  5.0117188 , 62.875     ,  7.0195312 ,
+       11.125     ,  4.5429688 , 14.125     , 18.171875  ,  1.6171875 ,
+        1.234375  ], dtype=float32)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note, behind the scenes jagged arrays are just like normal numpy arrays, except there’s additional structure, ecoded in the starts/stops/counts vectors.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">track_features</span><span class="p">[</span><span class="s1">&#39;track_pt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">starts</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([     0,     21,     56, ..., 542149, 542174, 542194])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">track_features</span><span class="p">[</span><span class="s1">&#39;track_pt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">stops</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([    21,     56,     80, ..., 542174, 542194, 542239])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">track_features</span><span class="p">[</span><span class="s1">&#39;track_pt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">counts</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([21, 35, 24, ..., 25, 20, 45])
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="operations-with-jaggedness">
+<h2>Operations with jaggedness<a class="headerlink" href="#operations-with-jaggedness" title="Permalink to this headline">¶</a></h2>
+<p>We can plot the full distibution of track pts. But what if we want to find the highest track pt per jet and plot only that?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">track_features</span><span class="p">[</span><span class="s1">&#39;track_pt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span><span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">101</span><span class="p">),</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;All tracks&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">track_features</span><span class="p">[</span><span class="s1">&#39;track_pt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span><span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">101</span><span class="p">),</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;Max. $p_</span><span class="si">{T}</span><span class="s1">$ track per jet&#39;</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">jet_features</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;fj_tau21&#39;</span><span class="p">],</span><span class="n">weights</span><span class="o">=</span><span class="n">label_QCD</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">101</span><span class="p">),</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;QCD&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">jet_features</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;fj_tau21&#39;</span><span class="p">],</span><span class="n">weights</span><span class="o">=</span><span class="n">label_Hbb</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">101</span><span class="p">),</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;H(bb)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Track $p_</span><span class="si">{T}</span><span class="s1">$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Fraction of tracks&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/02-dataset_12_0.png" src="_images/02-dataset_12_0.png" />
+<img alt="_images/02-dataset_25_0.png" src="_images/02-dataset_25_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="conversion-to-regular-array">
+<h2>Conversion to regular array<a class="headerlink" href="#conversion-to-regular-array" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes we want to turn a jagged array into a regular array to make it easier to accomodate into a machine learning algorithm (like a fully conneted or convolutional neural network).
+The simplest way to do this is to use zero-padding and truncation to “cap” the number of objects at some fixed value, and zero-pad if there are less objects.</p>
+<p>To do this, we can first plot how many tracks there are per jet and choose a reasonable number to cap.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">track_features</span><span class="p">[</span><span class="s1">&#39;track_pt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">counts</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">101</span><span class="p">),</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Number of tracks&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Fraction of jets&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/02-dataset_27_0.png" src="_images/02-dataset_27_0.png" />
+</div>
+</div>
+<p>In this case, 60 seems to be a reasonable number.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">track_features</span><span class="p">[</span><span class="s1">&#39;track_pt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="n">clip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">regular</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">a</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(20000, 60)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 1.0537109 ,  0.95654297,  1.4570312 , ...,  0.        ,
+         0.        ,  0.        ],
+       [ 2.7832031 ,  3.5253906 , 49.09375   , ...,  0.        ,
+         0.        ,  0.        ],
+       [ 1.5302734 ,  6.8164062 ,  2.9257812 , ...,  0.        ,
+         0.        ,  0.        ],
+       ...,
+       [ 1.0810547 ,  2.5234375 , 10.265625  , ...,  0.        ,
+         0.        ,  0.        ],
+       [ 4.8125    ,  2.6796875 ,  3.9824219 , ...,  0.        ,
+         0.        ,  0.        ],
+       [ 2.4101562 ,  1.4345703 ,  2.4628906 , ...,  0.        ,
+         0.        ,  0.        ]], dtype=float32)
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 </div>
