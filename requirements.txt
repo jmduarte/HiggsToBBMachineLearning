@@ -7,5 +7,3 @@ scikit-learn
 uproot
 keras
 tensorflow
-xrootd
-
