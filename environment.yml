@@ -9,4 +9,6 @@ dependencies:
     - scikit-learn
     - matplotlib
     - numpy
-    - jupyter-book
+    - pip
+    - pip:
+      - jupyter-book
