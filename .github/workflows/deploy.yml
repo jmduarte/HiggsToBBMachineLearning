@@ -10,7 +10,9 @@ on:
 jobs:
   deploy-book:
     runs-on: ubuntu-latest
-    container: gitlab-registry.nautilus.optiputer.net/jmduarte/weaver:latest
+    container: 
+      image: gitlab-registry.nautilus.optiputer.net/jmduarte/weaver:latest
+      options: --user 1001
     steps:
     - uses: actions/checkout@v2
 
