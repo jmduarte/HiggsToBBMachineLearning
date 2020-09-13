@@ -22,8 +22,19 @@ jobs:
         python-version: 3.7
         auto-activate-base: false
 
+    # Check dependencies
+    - name: Check Miniconda
+      shell: bash -l {0}
+      run: |
+        conda info
+        conda list
+        conda config --show-sources
+        conda config --show
+        printenv | sort
+
     # Build the book
     - name: Build the book
+      shell: bash -l {0}
       run: |
         jupyter-book build .
 
