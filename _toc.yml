@@ -1,4 +1,4 @@
-- file: README.rst
+- file: README.md
   sections:
-    - file: 02-dataset
-    - file: 03-train
+    - file: 02-dataset.ipynb
+    - file: 05-deep-learning.ipynb
