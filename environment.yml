@@ -2,9 +2,11 @@ name: analysis
 channels:
     - conda-forge
 dependencies:
-    - root=6.16.00
+    - uproot
     - keras
     - tensorflow
-    - pytables
+    - xrootd
     - scikit-learn
     - matplotlib
+    - numpy
+    - jupyter-book

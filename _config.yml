@@ -1,8 +1,16 @@
 # Book settings
 title: Particle Physics and Machine Learning
 author: Javier Duarte
-logo: HIG-19-003_v6.png
+logo: logo.png
 
 latex:
   latex_documents:
     targetname: book.tex
+
+repository:
+  url                       : https://github.com/jmduarte/HiggsToBBMachineLearning
+  branch                    : dsc
+
+launch_buttons:
+  binderhub_url: "https://mybinder.org"
+  jupyterhub_url: "https://datahub.ucsd.edu"

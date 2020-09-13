@@ -1,7 +1,7 @@
 Particle Physics and Machine Learning
 ==============================================================================
 
-Author: `Javier Duarte <https://orcid.org/0000-0002-5076-7096>`_
+Author: `Javier Duarte <https://orcid.org/0000-0002-5076-7096>`
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jmduarte/HiggsToBBMachineLearning/dsc)
 
