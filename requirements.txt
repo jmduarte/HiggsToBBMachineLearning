@@ -1,5 +1,6 @@
 wheel
 setuptools
+xrootd
 jupyter-book
 matplotlib
 numpy
