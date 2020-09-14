@@ -37,7 +37,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Week 2: Data Formats and Exploration" href="02-dataset.html" />
+    <link rel="next" title="Week 1: Introduction to Particle Physics and Jets" href="weeks/01.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
@@ -79,18 +79,48 @@
 </ul>
 <ul class="nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="02-dataset.html">
+  <a class="reference internal" href="weeks/01.html">
+   Week 1: Introduction to Particle Physics and Jets
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="weeks/02.html">
    Week 2: Data Formats and Exploration
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="03-features.html">
+  <a class="reference internal" href="weeks/03.html">
    Week 3: Feature Engineering
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="05-deep-learning.html">
+  <a class="reference internal" href="weeks/04.html">
+   Week 4: Simple Classifiers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="weeks/05.html">
    Week 5: Building a Deep Learning Model
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="weeks/06.html">
+   Week 6: Evalulating Model Performance and Robustness
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="weeks/07.html">
+   Week 7: Optimizing Other Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="weeks/08.html">
+   Week 8: Application to Real Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="weeks/09.html">
+   Week 9: Extending the Model
   </a>
  </li>
 </ul>
@@ -162,7 +192,34 @@
             <i class="fas fa-list"></i> Contents
         </div>
         <nav id="bd-toc-nav">
-            
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   Introduction
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#result-replication">
+   Result Replication
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#section-participation">
+   Section Participation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#schedule">
+   Schedule
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#office-hours">
+   Office Hours
+  </a>
+ </li>
+</ul>
+
         </nav>
     </div>
 </div>
@@ -173,20 +230,88 @@
                 
   <div class="section" id="particle-physics-and-machine-learning">
 <h1>Particle Physics and Machine Learning<a class="headerlink" href="#particle-physics-and-machine-learning" title="Permalink to this headline">¶</a></h1>
-<p>Author: <code class="docutils literal notranslate"><span class="pre">Javier</span> <span class="pre">Duarte</span> <span class="pre">&lt;https://orcid.org/0000-0002-5076-7096&gt;</span></code></p>
+<p><img src="HIG-19-003_v7.png" width=500> </img></p>
+<p>Data science capstone domain of inquiry (DSC 180AB B06).</p>
+<p>Developed by Javier Duarte <a class="reference external" href="https://orcid.org/0000-0002-5076-7096">https://orcid.org/0000-0002-5076-7096</a>, Frank Würthwein <a class="reference external" href="https://orcid.org/0000-0001-5912-6124">https://orcid.org/0000-0001-5912-6124</a>.</p>
 <p><a class="reference external" href="https://mybinder.org/v2/gh/jmduarte/HiggsToBBMachineLearning/dsc"><img alt="Binder" src="https://mybinder.org/badge_logo.svg" /></a></p>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>This domain centers around applying modern machine learning techniques to
+particle physics data.</p>
 </div>
-<div class="section" id="analysis-structure">
-<h1>Analysis structure<a class="headerlink" href="#analysis-structure" title="Permalink to this headline">¶</a></h1>
-<ol class="simple">
-<li><p>Input data</p></li>
-</ol>
-<hr class="docutils" />
-<p>Training and test ROOT and HDF5 files from CMS ML open data release.</p>
+<div class="section" id="result-replication">
+<h2>Result Replication<a class="headerlink" href="#result-replication" title="Permalink to this headline">¶</a></h2>
+<p>The bulk of the first half of the project will focus on the task of
+identying Higgs boson decaying to bottom quarks. Specifically, reproducing
+(or surpassing) results in this paper (not necessarily with the same ML technique):</p>
 <ul class="simple">
-<li><p>http://opendata.cern.ch/record/12102</p></li>
+<li><p><a class="reference external" href="https://arxiv.org/abs/1909.12285">Interaction networks for the identification of boosted \(H \to b\bar{b}\)</a></p></li>
 </ul>
+<p>This implies reproducing Figure 4, Figure 5, and if time permits Figure 8 in this paper.</p>
+<p>The latter-half of Quarter 1 will introduce you to further topics to inform possible
+avenues for further research.</p>
+</div>
+<div class="section" id="section-participation">
+<h2>Section Participation<a class="headerlink" href="#section-participation" title="Permalink to this headline">¶</a></h2>
+<p>Participation in the weekly discussion section is <em>mandatory</em>. Each
+week, you are responsible for doing the reading/task assigned in the
+<a class="reference external" href="#schedule">schedule</a>. Come to section prepared to ask questions about
+and discuss the results of these tasks.</p>
+<p>Each week, turn in answers to the weekly questions to Canvas. These
+questions are meant to focus your work for the week and help prepare
+you for discussion. If you have questions about your work, please ask
+them in section or office hours.</p>
+<p>You are responsible for the entire weekly reading/task, even if
+portions are not covered in the weekly questions. The weekly tasks are
+the building blocks for the project proposals/assignments due at the
+end of the quarter.</p>
+</div>
+<div class="section" id="schedule">
+<h2>Schedule<a class="headerlink" href="#schedule" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Week</p></th>
+<th class="head"><p>Topic</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p><a class="reference internal" href="weeks/01.html"><span class="doc std std-doc">Introduction to Particle Physics and Jets</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p><a class="reference internal" href="weeks/02.html"><span class="doc std std-doc">Data Formats and Exploration</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p><a class="reference internal" href="weeks/03.html"><span class="doc std std-doc">Feature Engineering</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p><a class="reference internal" href="weeks/04.html"><span class="doc std std-doc">Simple Classifiers</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p><a class="reference internal" href="weeks/05.html"><span class="doc std std-doc">Building a Deep Learning Model</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p><a class="reference internal" href="weeks/06.html"><span class="doc std std-doc">Evalulating Model Performance and Robustness</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p><a class="reference internal" href="weeks/07.html"><span class="doc std std-doc">Optimizing Other Objectives</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>8</p></td>
+<td><p><a class="reference internal" href="weeks/08.html"><span class="doc std std-doc">Application to Real Data</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>9</p></td>
+<td><p><a class="reference internal" href="weeks/09.html"><span class="doc std std-doc">Extending the Model</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>10</p></td>
+<td><p>Present Proposals</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="office-hours">
+<h2>Office Hours<a class="headerlink" href="#office-hours" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
+</div>
 </div>
 </div>
 
@@ -218,7 +343,7 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='right-next' id="next-link" href="02-dataset.html" title="next page">Week 2: Data Formats and Exploration</a>
+    <a class='right-next' id="next-link" href="weeks/01.html" title="next page">Week 1: Introduction to Particle Physics and Jets</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

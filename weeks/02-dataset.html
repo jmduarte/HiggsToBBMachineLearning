@@ -6,25 +6,25 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Week 2: Data Formats and Exploration &#8212; Particle Physics and Machine Learning</title>
+    <title>Week 2 Notebook: Data Formats and Exploration &#8212; Particle Physics and Machine Learning</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
-    <link href="_static/css/index.css" rel="stylesheet">
-    <link rel="stylesheet" href="_static/sphinx-book-theme.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-dropdown.css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
-    <script src="_static/togglebutton.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/sphinx-book-theme.js"></script>
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-dropdown.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
@@ -34,11 +34,11 @@
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
     </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Week 3: Feature Engineering" href="03-features.html" />
-    <link rel="prev" title="Particle Physics and Machine Learning" href="README.html" />
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Week 3: Feature Engineering" href="03.html" />
+    <link rel="prev" title="Week 2: Data Formats and Exploration" href="02.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
@@ -55,9 +55,9 @@
 <div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
-<a class="navbar-brand text-wrap" href="index.html">
+<a class="navbar-brand text-wrap" href="../index.html">
   
-  <img src="_static/logo.png" class="logo" alt="logo">
+  <img src="../_static/logo.png" class="logo" alt="logo">
   
   
   <h1 class="site-logo" id="site-title">Particle Physics and Machine Learning</h1>
@@ -65,7 +65,7 @@
 </a>
 </div>
 
-<form class="bd-search d-flex align-items-center" action="search.html" method="get">
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form>
@@ -73,25 +73,62 @@
 <nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <ul class="nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="README.html">
+  <a class="reference internal" href="../README.html">
    Particle Physics and Machine Learning
   </a>
  </li>
 </ul>
 <ul class="current nav sidenav_l1">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Week 2: Data Formats and Exploration
+ <li class="toctree-l1">
+  <a class="reference internal" href="01.html">
+   Week 1: Introduction to Particle Physics and Jets
   </a>
  </li>
+ <li class="toctree-l1 current active">
+  <a class="reference internal" href="02.html">
+   Week 2: Data Formats and Exploration
+  </a>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Week 2 Notebook: Data Formats and Exploration
+    </a>
+   </li>
+  </ul>
+ </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="03-features.html">
+  <a class="reference internal" href="03.html">
    Week 3: Feature Engineering
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="05-deep-learning.html">
+  <a class="reference internal" href="04.html">
+   Week 4: Simple Classifiers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05.html">
    Week 5: Building a Deep Learning Model
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.html">
+   Week 6: Evalulating Model Performance and Robustness
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07.html">
+   Week 7: Optimizing Other Objectives
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="08.html">
+   Week 8: Application to Real Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.html">
+   Week 9: Extending the Model
   </a>
  </li>
 </ul>
@@ -136,7 +173,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/02-dataset.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/weeks/02-dataset.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -160,23 +197,23 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/jmduarte/HiggsToBBMachineLearning/dsc?urlpath=tree/02-dataset.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/jmduarte/HiggsToBBMachineLearning/dsc?urlpath=tree/weeks/02-dataset.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
-                    src="_static/images/logo_binder.svg"
+                    src="../_static/images/logo_binder.svg"
                     alt="Interact on binder">Binder</button></a>
         
         
-        <a class="jupyterhub-button" href="https://datahub.ucsd.edu/hub/user-redirect/git-pull?repo=https://github.com/jmduarte/HiggsToBBMachineLearning&urlpath=tree/HiggsToBBMachineLearning/02-dataset.ipynb&branch=dsc"><button type="button"
+        <a class="jupyterhub-button" href="https://datahub.ucsd.edu/hub/user-redirect/git-pull?repo=https://github.com/jmduarte/HiggsToBBMachineLearning&urlpath=tree/HiggsToBBMachineLearning/weeks/02-dataset.ipynb&branch=dsc"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch JupyterHub" data-toggle="tooltip"
                 data-placement="left"><img class="jupyterhub-button-logo"
-                    src="_static/images/logo_jupyterhub.svg"
+                    src="../_static/images/logo_jupyterhub.svg"
                     alt="Interact on JupyterHub">JupyterHub</button></a>
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/jmduarte/HiggsToBBMachineLearning/blob/dsc/02-dataset.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/jmduarte/HiggsToBBMachineLearning/blob/dsc/weeks/02-dataset.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="_static/images/logo_colab.png"
+                    src="../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
         
         
@@ -237,8 +274,8 @@
         
               <div>
                 
-  <div class="section" id="week-2-data-formats-and-exploration">
-<h1>Week 2: Data Formats and Exploration<a class="headerlink" href="#week-2-data-formats-and-exploration" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="week-2-notebook-data-formats-and-exploration">
+<h1>Week 2 Notebook: Data Formats and Exploration<a class="headerlink" href="#week-2-notebook-data-formats-and-exploration" title="Permalink to this headline">¶</a></h1>
 <p>Particle physics uses a data format (and analysis ecosystem) based on the <code class="docutils literal notranslate"><span class="pre">ROOT</span></code> library: https://root.cern.ch/.
 <code class="docutils literal notranslate"><span class="pre">ROOT</span></code> is a framework for data processing, born at CERN, at the heart of the research on high-energy physics.
 A <code class="docutils literal notranslate"><span class="pre">ROOT</span></code> file is a compressed binary file in which we can save objects of any type.
@@ -648,8 +685,8 @@ The latter means there may a variable number per jet.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/02-dataset_14_0.png" src="_images/02-dataset_14_0.png" />
-<img alt="_images/02-dataset_14_1.png" src="_images/02-dataset_14_1.png" />
+<img alt="../_images/02-dataset_14_0.png" src="../_images/02-dataset_14_0.png" />
+<img alt="../_images/02-dataset_14_1.png" src="../_images/02-dataset_14_1.png" />
 </div>
 </div>
 </div>
@@ -667,7 +704,7 @@ The latter means there may a variable number per jet.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;track_pt&#39;: &lt;JaggedArray [[1.0537109 0.95654297 1.4570312 ... 18.171875 1.6171875 1.234375] [2.7832031 3.5253906 49.09375 ... 3.8613281 1.4599609 1.4306641] [1.5302734 6.8164062 2.9257812 ... 25.6875 36.3125 1.1513672] ... [1.0810547 2.5234375 10.265625 ... 1.25 24.453125 8.4921875] [4.8125 2.6796875 3.9824219 ... 4.3359375 23.375 6.3242188] [2.4101562 1.4345703 2.4628906 ... 57.59375 1.0419922 2.9726562]] at 0x7f1e031074d0&gt;,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;track_pt&#39;: &lt;JaggedArray [[1.0537109 0.95654297 1.4570312 ... 18.171875 1.6171875 1.234375] [2.7832031 3.5253906 49.09375 ... 3.8613281 1.4599609 1.4306641] [1.5302734 6.8164062 2.9257812 ... 25.6875 36.3125 1.1513672] ... [1.0810547 2.5234375 10.265625 ... 1.25 24.453125 8.4921875] [4.8125 2.6796875 3.9824219 ... 4.3359375 23.375 6.3242188] [2.4101562 1.4345703 2.4628906 ... 57.59375 1.0419922 2.9726562]] at 0x7f3f71964490&gt;,
  &#39;label_H_bb&#39;: array([0, 0, 0, ..., 0, 0, 0], dtype=int32)}
 </pre></div>
 </div>
@@ -758,7 +795,7 @@ The latter means there may a variable number per jet.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/02-dataset_25_0.png" src="_images/02-dataset_25_0.png" />
+<img alt="../_images/02-dataset_25_0.png" src="../_images/02-dataset_25_0.png" />
 </div>
 </div>
 </div>
@@ -779,7 +816,7 @@ The simplest way to do this is to use zero-padding and truncation to “cap” t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/02-dataset_27_0.png" src="_images/02-dataset_27_0.png" />
+<img alt="../_images/02-dataset_27_0.png" src="../_images/02-dataset_27_0.png" />
 </div>
 </div>
 <p>In this case, 60 seems to be a reasonable number.</p>
@@ -828,7 +865,7 @@ The simplest way to do this is to use zero-padding and truncation to “cap” t
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./."
+            path: "./weeks"
         },
         predefinedOutput: true
     }
@@ -843,8 +880,8 @@ The simplest way to do this is to use zero-padding and truncation to “cap” t
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="README.html" title="previous page">Particle Physics and Machine Learning</a>
-    <a class='right-next' id="next-link" href="03-features.html" title="next page">Week 3: Feature Engineering</a>
+    <a class='left-prev' id="prev-link" href="02.html" title="previous page">Week 2: Data Formats and Exploration</a>
+    <a class='right-next' id="next-link" href="03.html" title="next page">Week 3: Feature Engineering</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
@@ -863,7 +900,7 @@ The simplest way to do this is to use zero-padding and truncation to “cap” t
       </div>
     </div>
 
-    <script src="_static/js/index.js"></script>
+    <script src="../_static/js/index.js"></script>
     
   </body>
 </html>
