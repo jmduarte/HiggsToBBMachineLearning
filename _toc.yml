@@ -1,5 +1,16 @@
 - file: README.md
+- file: weeks/01.md
+- file: weeks/02.md
   sections:
-    - file: 02-dataset.ipynb
-    - file: 03-features.ipynb
-    - file: 05-deep-learning.ipynb
+  - file: weeks/02-dataset.ipynb
+- file: weeks/03.md
+  sections:
+  - file: weeks/03-features.ipynb
+- file: weeks/04.md
+- file: weeks/05.md
+  sections:
+  - file: weeks/05-deep-learning.ipynb
+- file: weeks/06.md
+- file: weeks/07.md
+- file: weeks/08.md
+- file: weeks/09.md
