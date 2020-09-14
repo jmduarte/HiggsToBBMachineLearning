@@ -1,19 +1,19 @@
 # Particle Physics and Machine Learning
 
-<img src="HIG-19-003_v7.png"> </img>
+<img src="HIG-19-003_v7.png" width=500> </img>
+
 Data science capstone domain of inquiry (DSC 180AB B06).
 
 Developed by Javier Duarte <https://orcid.org/0000-0002-5076-7096>, Frank Würthwein <https://orcid.org/0000-0001-5912-6124>.
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jmduarte/HiggsToBBMachineLearning/dsc)
 
-
 ## Introduction
 
 This domain centers around applying modern machine learning techniques to
 particle physics data.
 
-## Result replication (introduction to topic)
+## Result Replication
 
 The bulk of the first half of the project will focus on the task of
 identying Higgs boson decaying to bottom quarks. Specifically, reproducing 
@@ -24,7 +24,6 @@ This implies reproducing Figure 4, Figure 5, and if time permits Figure 8 in thi
 
 The latter-half of Quarter 1 will introduce you to further topics to inform possible
 avenues for further research.
-
 
 ## Section Participation
 
@@ -43,7 +42,6 @@ portions are not covered in the weekly questions. The weekly tasks are
 the building blocks for the project proposals/assignments due at the
 end of the quarter.
 
-
 ## Schedule
 
 |Week|Topic|
@@ -59,9 +57,7 @@ end of the quarter.
 |9|[Extending the Model](weeks/09.md)|
 |10|Present Proposals|
 
----
-
-# Office Hours
+## Office Hours
 
 
 
