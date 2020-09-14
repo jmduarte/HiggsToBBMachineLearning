@@ -1,6 +1,6 @@
-# Particle Physics and Machine Learning
+<img src="https://github.com/jmduarte/HiggsToBBMachineLearning/raw/dsc/HIG-19-003_v7.png" width=500> </img>
 
-<img src="HIG-19-003_v7.png" width=500> </img>
+# Particle Physics and Machine Learning
 
 Data science capstone domain of inquiry (DSC 180AB B06).
 
